@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeugdopleiding & Voetbalvisie | Kon. Ik Dien FC</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        :root {
+            /* Koninklijke Ik Dien FC Kleuren */
+            --primary-color: #4E2F75;       /* Karakteristiek Ik Dien Paars */
+            --primary-dark: #371D55;        /* Diep nachtpaars */
+            --primary-light: #6A449B;       /* Helder paars */
+            --primary-surface: #F5F0FB;     /* Zachte paars getinte achtergrond */
+            --primary-border: #DECFF3;      /* Subtiele paarse rand */
+            
+            --white: #ffffff;
+            --text-main: #231C2D;           /* Donkere bodytekst */
+            --text-muted: #675F73;          /* Rustige secundaire tekst */
+            --bg-page: #F8F7FB;             /* Frisse pagina-achtergrond */
+            --card-bg: #ffffff;
+            
+            --shadow-sm: 0 2px 8px rgba(78, 47, 117, 0.06);
+            --shadow-md: 0 8px 24px rgba(78, 47, 117, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 16px 36px rgba(78, 47, 117, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06);
+            
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+
+        header {
+            background: linear-gradient(135deg, #2E1546 0%, #4E2F75 60%, #6A449B 100%);
+            color: var(--white);
+            padding: 50px 20px 55px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(78, 47, 117, 0.25);
+        }
+
+        /* Subtiel decoratief rasterpatroon */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 45%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            max-width: 820px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .club-badge-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .club-badge-container:hover {
+            transform: scale(1.05);
+        }
+
+        .club-badge-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .club-tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        h1 {
+            font-size: 2.35rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        p.subtitle {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: 400;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        /* Filter & Zoeksectie */
+        .controls-wrapper {
+            max-width: 800px;
+            margin: -25px auto 35px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 10px 18px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--primary-border);
+        }
+
+        .search-box svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 0.98rem;
+            color: var(--text-main);
+            background: transparent;
+        }
+
+        .search-box input::placeholder {
+            color: #9d94a8;
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .filter-btn {
+            background: var(--white);
+            border: 1px solid var(--primary-border);
+            color: var(--text-main);
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-btn:hover {
+            background: var(--primary-surface);
+            color: var(--primary-color);
+            border-color: var(--primary-light);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(78, 47, 117, 0.3);
+        }
+
+        /* Hoofdinhoud & Grid */
+        main {
+            max-width: 1200px;
+            margin: 5px auto 60px;
+            padding: 0 20px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+
+
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 26px;
+        }
+
+        /* Documentkaarten */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 24px 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--primary-border);
+            border-top: 4px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--primary-light);
+            border-color: var(--primary-light);
+        }
+
+        .card:hover h3 {
+            color: var(--primary-light);
+        }
+
+        .card-meta-row {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 14px;
+            padding-right: 36px;
+        }
+
+        .category-pill {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background-color: var(--primary-surface);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-border);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .pdf-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #C62828;
+            background-color: #FFEBEE;
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .card h3 {
+            font-size: 1.22rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.91rem;
+            line-height: 1.55;
+            margin-bottom: 8px;
+        }
+
+        .card-arrow {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary-surface);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            border: 1px solid var(--primary-border);
+        }
+
+        .card-arrow svg {
+            width: 15px;
+            height: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover .card-arrow {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            transform: scale(1.06);
+        }
+
+        /* Geen resultaten melding */
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--primary-border);
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.95rem; }
+            p.subtitle { font-size: 1.02rem; }
+            header { padding: 40px 16px 45px; }
+            .document-grid { grid-template-columns: 1fr; }
+            .category-filters { justify-content: center; flex-wrap: wrap; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <!-- Header / Hero -->
+    <header>
+        <div class="header-content">
+            <div class="club-badge-container">
+                <img src="ikdien-logo-wit.png" alt="Kon. Ik Dien FC Logo">
+            </div>
+            <div class="club-tag">Kennis- & Documentenportaal</div>
+            <h1>Jeugdopleiding Kon. Ik Dien FC</h1>
+            <p class="subtitle">Sportieve visie, opleidingsstructuur & beleidsrichtlijnen</p>
+        </div>
+    </header>
+
+    <!-- Zoekbalk & Categorieknoppen -->
+    <div class="controls-wrapper">
+        <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Zoek op titel of trefwoord (bv. 8v8, rekrutering, gezondheid, visie)..." aria-label="Zoek in documenten">
+        </div>
+        <div class="category-filters" id="categoryFilters">
+            <button class="filter-btn active" data-filter="all">Alle documenten (8)</button>
+            <button class="filter-btn" data-filter="visie">Visie & Kaders</button>
+            <button class="filter-btn" data-filter="wedstrijdvormen">Spelprincipes (2v2 - 11v11)</button>
+            <button class="filter-btn" data-filter="begeleiding">Fysiek & Beleid</button>
+        </div>
+    </div>
+
+    <!-- Hoofdinhoud -->
+    <main>
+
+        
+        <div class="document-grid" id="documentGrid">
+            
+            <!-- Document 1: Voetbal- en Opleidingsvisie -->
+            <a href="documents/Ik%20Dien%20-%20Voetbal-en-opleidingsvisie.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="visie" data-keywords="visie opleiding jeugdbeleid filosofie pijlers kompas clubidentiteit algemeen leerlijnen">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Hoofdvisie</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 1.4 MB
+                    </span>
+                </div>
+                <h3>Voetbal- & Opleidingsvisie</h3>
+            </a>
+
+            <!-- Document 2: Infographic Voetbalvisie -->
+            <a href="documents/infographic-voetbalvisie.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="visie" data-keywords="infographic poster overzicht visueel samenvatting kernwaarden leidraad pijlers">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Infographic</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 966 KB
+                    </span>
+                </div>
+                <h3>Infographic Voetbalvisie</h3>
+            </a>
+
+            <!-- Document 3: 2v2 & 3v3 Basisprincipes -->
+            <a href="documents/2v2_3v3-basisprincipes.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="wedstrijdvormen" data-keywords="2v2 3v3 debutanten u6 u7 onderbouw basisprincipes dribbelen spelplezier balgewenning acties">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Onderbouw (U6 - U7)</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 14.5 MB
+                    </span>
+                </div>
+                <h3>2v2 & 3v3 Basisprincipes</h3>
+                <p>De fundamenten voor de allerkleinsten: focus op maximaal balcontact, 1v1-duels, durf om te dribbelen en puur voetbalplezier.</p>
+            </a>
+
+            <!-- Document 4: 5v5 Basisprincipes -->
+            <a href="documents/5v5-basisprincipes.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="wedstrijdvormen" data-keywords="5v5 u8 u9 onderbouw ruit samenspel passing driehoeken veldbezetting omschakeling">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Onderbouw (U8 - U9)</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 28.9 MB
+                    </span>
+                </div>
+                <h3>5v5 Basisprincipes</h3>
+                <p>De introductie van de ruit.</p>
+            </a>
+
+            <!-- Document 5: 8v8 Basisprincipes -->
+            <a href="documents/8v8-basisprincipes.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="wedstrijdvormen" data-keywords="8v8 u10 u11 u12 u13 middenbouw linies positiespel veldbezetting pressing omschakeling">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Middenbouw (U10 - U13)</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 28.9 MB
+                    </span>
+                </div>
+                <h3>8v8 Basisprincipes</h3>
+                <p>De dubbele ruit. Het logische vervolg op de enkelvoudige ruit waarin de keuzemogelijkheden tussen individuele acties en samenspel een belangrijke rol speelt.</p>
+            </a>
+
+            <!-- Document 6: 11v11 Basisprincipes -->
+            <a href="documents/11v11-basisprincipes.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="wedstrijdvormen" data-keywords="11v11 u14 u15 u16 u17 u19 bovenbouw tactiek zoneverdediging formatie groot veld pressing linies">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Bovenbouw (U14+)</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 43.4 MB
+                    </span>
+                </div>
+                <h3>11v11 Basisprincipes</h3>
+                <p>Het volwaardige voetbal op groot veld in een 4-3-3 syteem: tactische discipline, zoneverdediging, compacte linies, opbouwpatronen en gerichte omschakelmomenten.</p>
+            </a>
+
+            <!-- Document 7: Gezondheid en Prestatieverbetering -->
+            <a href="documents/Ik%20DIen%20-%20Gezondheid%20en%20Prestatieverbetering.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="begeleiding" data-keywords="gezondheid fysiek prestatie blessurepreventie warming up voeding herstel medisch fitheid load management">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Fysiek & Welzijn</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 994 KB
+                    </span>
+                </div>
+                <h3>Gezondheid & Prestatie</h3>
+                <p>Praktische richtlijnen rond fysieke ontwikkeling, blessurepreventie, effectieve warming-up protocollen, hydratatie, gezonde voeding en optimaal herstel.</p>
+            </a>
+
+            <!-- Document 8: Talent ID en Rekrutering -->
+            <a href="documents/Ik%20Dien%20-%20Talent%20ID%20en%20rekrutering.pdf" class="card" target="_blank" rel="noopener noreferrer" data-category="begeleiding" data-keywords="talent id scouting rekrutering doorstroming evaluatie selectie instroom potentieel sportief beleid">
+                <div class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="card-meta-row">
+                    <span class="category-pill">Sportief Beleid</span>
+                    <span class="pdf-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        </svg>
+                        PDF • 976 KB
+                    </span>
+                </div>
+                <h3>Talent ID & Rekrutering</h3>
+                <p>Heldere procedures en objectieve criteria voor talentidentificatie, instroombeleid, spelersopvolging en gerichte doorstroming binnen de club.</p>
+            </a>
+
+            <!-- Bericht bij geen zoekresultaten -->
+            <div class="no-results" id="noResults">
+                <p>Geen documenten gevonden die voldoen aan de zoekterm of geselecteerde categorie.</p>
+            </div>
+
+        </div>
+    </main> 
+
+
+
+    <!-- Filter- & Zoekfunctionaliteit Script -->
+    <script>
+        let currentFilter = 'all';
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card');
+        const noResults = document.getElementById('noResults');
+
+        function updateVisibility() {
+            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const titleEl = card.querySelector('h3');
+                const title = titleEl ? titleEl.textContent.toLowerCase() : '';
+
+                const pEl = card.querySelector('p');
+                const text = pEl ? pEl.textContent.toLowerCase() : '';
+
+                const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+                const category = (card.getAttribute('data-category') || '').toLowerCase();
+
+                const pills = Array.from(card.querySelectorAll('.category-pill, .pdf-badge'))
+                    .map(el => el.textContent.toLowerCase())
+                    .join(' ');
+
+                // Check zoekopdracht
+                const matchesQuery = query === '' ||
+                    title.includes(query) ||
+                    text.includes(query) ||
+                    keywords.includes(query) ||
+                    pills.includes(query);
+
+                // Check categorie
+                const matchesCategory = currentFilter === 'all' || category === currentFilter;
+
+                if (matchesQuery && matchesCategory) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (noResults) {
+                noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                updateVisibility();
+            });
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener('input', updateVisibility);
+            searchInput.addEventListener('keyup', updateVisibility);
+            searchInput.addEventListener('search', updateVisibility);
+        }
+    </script>
+
+</body>
+</html>
